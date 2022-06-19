@@ -4,8 +4,7 @@ import * as React from "react";
 import { IconButton } from "react-native-paper";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import TabOneScreen from "../screens/TabOneScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
+import UnderConstructionScreen from "../screens/UnderConstructionScreen";
 import { RootTabParamList, RootTabScreenProps } from "../types";
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
@@ -22,7 +21,7 @@ const BottomTabNavigator = () => {
 		>
 			<BottomTab.Screen
 				name="Explore"
-				component={TabOneScreen}
+				component={UnderConstructionScreen}
 				options={({ navigation }: RootTabScreenProps<"Explore">) => ({
 					title: "Explore",
 					tabBarIcon: ({ color }) => (
@@ -32,7 +31,7 @@ const BottomTabNavigator = () => {
 			/>
 			<BottomTab.Screen
 				name="Chat"
-				component={TabTwoScreen}
+				component={UnderConstructionScreen}
 				options={{
 					title: "Chat",
 					tabBarIcon: ({ color }) => (
@@ -42,7 +41,7 @@ const BottomTabNavigator = () => {
 			/>
 			<BottomTab.Screen
 				name="Profile"
-				component={TabTwoScreen}
+				component={UnderConstructionScreen}
 				options={() => ({
 					title: "Profile",
 					tabBarIcon: ({ color }) => (

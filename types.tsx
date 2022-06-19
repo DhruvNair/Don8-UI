@@ -22,6 +22,12 @@ export type RootStackParamList = {
 	NotFound: undefined;
 };
 
+export type AuthStackParamList = {
+	Login: undefined;
+	Register: undefined;
+	"Reset Password": undefined;
+};
+
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
 	NativeStackScreenProps<RootStackParamList, Screen>;
 
