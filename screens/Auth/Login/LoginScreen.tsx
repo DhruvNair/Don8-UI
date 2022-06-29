@@ -4,7 +4,7 @@ import {
 	Dimensions,
 	Keyboard,
 	KeyboardAvoidingView,
-	ScrollView,
+	TextInput as TextInputType,
 	StyleSheet,
 } from "react-native";
 import { Button, Caption, HelperText, TextInput } from "react-native-paper";
@@ -15,6 +15,7 @@ import { Regex } from "../../../constants/Regex";
 import { useReduxDispatch } from "../../../store";
 import BGStroke from "../../../assets/svgs/brushstroke1.svg";
 import Logo from "../../../assets/svgs/logo.svg";
+import { AuthStackScreenProps } from "../../../types";
 
 const loginSchema = yup.object({
 	email: yup
@@ -27,10 +28,10 @@ const loginSchema = yup.object({
 		.min(8, "Passwords can't be less than 8 characters"),
 });
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }: AuthStackScreenProps<"Login">) => {
 	const [passwordHidden, setPasswordHidden] = useState(true);
 	const dispatch = useReduxDispatch();
-	const passwordInputRef = useRef(null);
+	const passwordInputRef = useRef<TextInputType>(null);
 
 	return (
 		<KeyboardAvoidingView
@@ -69,9 +70,9 @@ const LoginScreen = () => {
 								onChangeText={formikProps.handleChange("email")}
 								onBlur={formikProps.handleBlur("email")}
 								value={formikProps.values.email}
-								// onSubmitEditing={() =>
-								// 	passwordInputRef.current?.focus()
-								// }
+								onSubmitEditing={() =>
+									passwordInputRef.current?.focus()
+								}
 								blurOnSubmit={false}
 								error={
 									!!(
@@ -102,7 +103,9 @@ const LoginScreen = () => {
 								onBlur={formikProps.handleBlur("password")}
 								value={formikProps.values.password}
 								secureTextEntry={passwordHidden}
-								// onSubmitEditing={formikProps.handleSubmit}
+								onSubmitEditing={(e) => {
+									formikProps.handleSubmit();
+								}}
 								blurOnSubmit={false}
 								right={
 									<TextInput.Icon
@@ -148,15 +151,15 @@ const LoginScreen = () => {
 								style={styles.caption}
 								onPress={() => {
 									Keyboard.dismiss();
-									// navigation.navigate('Forgot Password', {
-									//     email: formikProps.values.email,
-									// });
+									navigation.navigate("Forgot Password", {
+										email: formikProps.values.email,
+									});
 								}}
 							>
 								Forgot Password?
 							</Caption>
 							<Caption
-								// onPress={openSignUpScreen}
+								onPress={() => navigation.navigate("Register")}
 								style={styles.caption}
 							>
 								New here? Create a new account!

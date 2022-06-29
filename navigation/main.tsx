@@ -3,7 +3,7 @@ import { useState } from "react";
 import { getValueFromSecureStorage } from "../helpers/secureStorageHelpers";
 import { useReduxDispatch, useReduxSelector } from "../store";
 import { setToken } from "../store/auth/token";
-import AuthStackNavigator from "./authStack";
+import AuthStackNavigator from "./auth/authStack";
 import BottomTabNavigator from "./bottomTab";
 
 const RootNavigator = () => {
