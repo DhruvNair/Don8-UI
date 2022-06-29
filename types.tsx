@@ -25,12 +25,31 @@ export type RootStackParamList = {
 export type AuthStackParamList = {
 	Login: undefined;
 	Register: undefined;
-	"Reset Password": undefined;
+	"Forgot Password": {
+		email: string;
+	};
 };
 
-export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
-	NativeStackScreenProps<RootStackParamList, Screen>;
+export type AuthStackScreenProps<Screen extends keyof AuthStackParamList> =
+	NativeStackScreenProps<AuthStackParamList, Screen>;
 
+export type RegisterStackParamList = {
+	Step1: undefined;
+	Step2: {
+		name: string;
+		email: string;
+		phone: string;
+	};
+	Step3: {
+		name: string;
+		email: string;
+		phone: string;
+		password: string;
+	};
+};
+export type RegisterStackScreenProps<
+	Screen extends keyof RegisterStackParamList
+> = NativeStackScreenProps<RegisterStackParamList, Screen>;
 export type RootTabParamList = {
 	Explore: undefined;
 	Chat: undefined;
