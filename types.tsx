@@ -50,6 +50,17 @@ export type RegisterStackParamList = {
 export type RegisterStackScreenProps<
 	Screen extends keyof RegisterStackParamList
 > = NativeStackScreenProps<RegisterStackParamList, Screen>;
+
+export type ForgotPasswordStackParamList = {
+	Step1: { email: string };
+	Step2: {
+		email: string;
+	};
+};
+export type ForgotPasswordStackScreenProps<
+	Screen extends keyof ForgotPasswordStackParamList
+> = NativeStackScreenProps<ForgotPasswordStackParamList, Screen>;
+
 export type RootTabParamList = {
 	Explore: undefined;
 	Chat: undefined;

@@ -62,6 +62,7 @@ const RegisterScreenStep1 = ({
 										emailInputRef.current?.focus()
 									}
 									blurOnSubmit={false}
+									returnKeyType="go"
 									value={formikProps.values.name}
 									error={
 										!!(
@@ -97,6 +98,7 @@ const RegisterScreenStep1 = ({
 									}
 									blurOnSubmit={false}
 									value={formikProps.values.email}
+									returnKeyType="go"
 									error={
 										!!(
 											formikProps.touched.email &&

@@ -16,6 +16,8 @@ import { useReduxDispatch } from "../../../store";
 import BGStroke from "../../../assets/svgs/brushstroke1.svg";
 import Logo from "../../../assets/svgs/logo.svg";
 import { AuthStackScreenProps } from "../../../types";
+import { loginService } from "../../../services/authService";
+import { setToken } from "../../../store/auth/token";
 
 const loginSchema = yup.object({
 	email: yup
@@ -30,8 +32,20 @@ const loginSchema = yup.object({
 
 const LoginScreen = ({ navigation }: AuthStackScreenProps<"Login">) => {
 	const [passwordHidden, setPasswordHidden] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const dispatch = useReduxDispatch();
 	const passwordInputRef = useRef<TextInputType>(null);
+
+	const login = async (credentials: { email: string; password: string }) => {
+		try {
+			setLoading(true);
+			const res = await loginService(credentials);
+			dispatch(setToken(res.data.body));
+		} catch (e) {
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	return (
 		<KeyboardAvoidingView
@@ -57,7 +71,10 @@ const LoginScreen = ({ navigation }: AuthStackScreenProps<"Login">) => {
 					initialValues={{ email: "", password: "" }}
 					validationSchema={loginSchema}
 					onSubmit={(values, action) => {
-						// dispatch(logInUser(values));
+						if (!loading) {
+							Keyboard.dismiss();
+							login(values);
+						}
 					}}
 				>
 					{(formikProps) => (
@@ -66,6 +83,7 @@ const LoginScreen = ({ navigation }: AuthStackScreenProps<"Login">) => {
 								style={styles.textInput}
 								mode="outlined"
 								label="Email"
+								disabled={loading}
 								placeholder="Email"
 								onChangeText={formikProps.handleChange("email")}
 								onBlur={formikProps.handleBlur("email")}
@@ -73,6 +91,7 @@ const LoginScreen = ({ navigation }: AuthStackScreenProps<"Login">) => {
 								onSubmitEditing={() =>
 									passwordInputRef.current?.focus()
 								}
+								returnKeyType="go"
 								blurOnSubmit={false}
 								error={
 									!!(
@@ -95,6 +114,7 @@ const LoginScreen = ({ navigation }: AuthStackScreenProps<"Login">) => {
 							<TextInput
 								style={styles.textInput}
 								mode="outlined"
+								disabled={loading}
 								ref={passwordInputRef}
 								label="Password"
 								onChangeText={formikProps.handleChange(
@@ -142,6 +162,7 @@ const LoginScreen = ({ navigation }: AuthStackScreenProps<"Login">) => {
 								mode="contained"
 								style={styles.button}
 								onPress={formikProps.handleSubmit}
+								loading={loading}
 								labelStyle={{ color: "white" }}
 							>
 								Sign In
@@ -150,16 +171,21 @@ const LoginScreen = ({ navigation }: AuthStackScreenProps<"Login">) => {
 							<Caption
 								style={styles.caption}
 								onPress={() => {
-									Keyboard.dismiss();
-									navigation.navigate("Forgot Password", {
-										email: formikProps.values.email,
-									});
+									if (!loading) {
+										Keyboard.dismiss();
+										navigation.navigate("Forgot Password", {
+											email: formikProps.values.email,
+										});
+									}
 								}}
 							>
 								Forgot Password?
 							</Caption>
 							<Caption
-								onPress={() => navigation.navigate("Register")}
+								onPress={() => {
+									if (!loading)
+										navigation.navigate("Register");
+								}}
 								style={styles.caption}
 							>
 								New here? Create a new account!

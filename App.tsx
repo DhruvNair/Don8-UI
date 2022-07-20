@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider as ReduxProvider } from "react-redux";
 
@@ -8,10 +8,15 @@ import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 import store from "./store";
 import { Provider as PaperProvider } from "react-native-paper";
+import runInterceptor from "./services/interceptor";
 
 export default function App() {
 	const isLoadingComplete = useCachedResources();
 	const colorScheme = useColorScheme();
+
+	useEffect(() => {
+		runInterceptor();
+	}, []);
 
 	if (!isLoadingComplete) {
 		return null;
@@ -21,7 +26,6 @@ export default function App() {
 				<PaperProvider>
 					<SafeAreaProvider>
 						<Navigation colorScheme={colorScheme} />
-						<StatusBar />
 					</SafeAreaProvider>
 				</PaperProvider>
 			</ReduxProvider>

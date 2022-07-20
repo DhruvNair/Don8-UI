@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import LoginScreen from "../../screens/Auth/Login/LoginScreen";
 import UnderConstructionScreen from "../../screens/UnderConstructionScreen";
 import { AuthStackParamList } from "../../types";
+import ForgotPasswordStackNavigator from "./forgotPasswordStack";
 import RegisterStackNavigator from "./registerStack";
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
@@ -17,7 +18,7 @@ const AuthStackNavigator = () => {
 			<Stack.Screen name="Register" component={RegisterStackNavigator} />
 			<Stack.Screen
 				name="Forgot Password"
-				component={UnderConstructionScreen}
+				component={ForgotPasswordStackNavigator}
 			/>
 		</Stack.Navigator>
 	);

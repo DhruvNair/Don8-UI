@@ -5,13 +5,15 @@ import { IconButton } from "react-native-paper";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import UnderConstructionScreen from "../screens/UnderConstructionScreen";
+import { useReduxDispatch } from "../store";
+import { clearToken } from "../store/auth/token";
 import { RootTabParamList, RootTabScreenProps } from "../types";
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 const BottomTabNavigator = () => {
 	const colorScheme = useColorScheme();
-
+	const dispatch = useReduxDispatch();
 	return (
 		<BottomTab.Navigator
 			initialRouteName="Explore"
@@ -51,7 +53,7 @@ const BottomTabNavigator = () => {
 						<IconButton
 							icon={"logout"}
 							onPress={() => {
-								console.log("Log Out");
+								dispatch(clearToken());
 							}}
 						/>
 					),

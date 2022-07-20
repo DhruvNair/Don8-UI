@@ -5,11 +5,13 @@ import {
 } from "react-native";
 import React, { useRef, useState } from "react";
 import * as yup from "yup";
-import { RegisterStackScreenProps } from "../../../types";
+import { ForgotPasswordStackScreenProps } from "../../../types";
 import { Button, HelperText, Subheading, TextInput } from "react-native-paper";
 import { Formik } from "formik";
 import Colors from "../../../constants/Colors";
 import { View } from "../../../components/Themed";
+import { resetPasswordService } from "../../../services/authService";
+import Toast from "react-native-simple-toast";
 
 const SignUpStepTwoSchema = yup.object().shape({
 	password: yup
@@ -26,26 +28,33 @@ const SignUpStepTwoSchema = yup.object().shape({
 	}),
 });
 
-const RegisterScreenStep2 = ({
+const ForgotPasswordScreenStep2 = ({
 	navigation,
 	route,
-}: RegisterStackScreenProps<"Step2">) => {
+}: ForgotPasswordStackScreenProps<"Step2">) => {
 	const [hidePassword, setHidePassword] = useState(true);
 	const [hideReEnteredPassword, setHideReEnteredPassword] = useState(true);
-	const { email, name, phone } = route.params;
+	const { email } = route.params;
 	const reEnterPasswordRef = useRef<TextInputType>(null);
+	const resetPassword = async (credentials: {
+		email: string;
+		password: string;
+	}) => {
+		try {
+			const res = await resetPasswordService(credentials);
+			Toast.show("Password reset successfully! You can login now.");
+			navigation.getParent()?.goBack();
+		} catch (e: any) {
+			Toast.show(e.response.data.body || "An unexpected error occured.");
+		}
+	};
 	return (
 		<View style={{ flex: 1 }}>
 			<Formik
 				validationSchema={SignUpStepTwoSchema}
 				initialValues={{ password: "", reEnteredPassword: "" }}
 				onSubmit={(values, action) => {
-					navigation.navigate("Step3", {
-						name,
-						email,
-						phone,
-						password: values.password,
-					});
+					resetPassword({ email, password: values.password });
 				}}
 			>
 				{(formikProps) => (
@@ -53,7 +62,7 @@ const RegisterScreenStep2 = ({
 						<ScrollView contentContainerStyle={styles.container}>
 							<View style={styles.stepper}>
 								<Subheading>
-									Step 2 of 3: Account setup
+									Step 2 of 2: Reset password
 								</Subheading>
 							</View>
 							<View style={styles.content}>
@@ -170,7 +179,7 @@ const RegisterScreenStep2 = ({
 	);
 };
 
-export default RegisterScreenStep2;
+export default ForgotPasswordScreenStep2;
 
 const styles = StyleSheet.create({
 	container: {
