@@ -7,5 +7,9 @@ export default {
 		registerUser: server_url + "/auth/signup",
 		sendForgotPasswordOTP: server_url + "/auth/forgot",
 		resetPassword: server_url + "/auth/password",
+		getUserDetails: server_url + "/auth/token",
+	},
+	user: {
+		details: server_url + "/user",
 	},
 };

@@ -1,9 +1,9 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getValueFromSecureStorage } from "../helpers/secureStorageHelpers";
 import { useReduxDispatch, useReduxSelector } from "../store";
 import { setToken } from "../store/auth/token";
-import AuthStackNavigator from "./auth/authStack";
+import AuthStackNavigator from "./auth";
 import BottomTabNavigator from "./bottomTab";
 
 const RootNavigator = () => {
@@ -12,6 +12,10 @@ const RootNavigator = () => {
 		await checkToken();
 		setTimeout(() => setAppReady(true), 1000);
 	};
+	useEffect(() => {
+		startApp();
+	}, []);
+
 	const checkToken = async () => {
 		const storedToken = await getValueFromSecureStorage("token");
 		if (storedToken) dispatch(setToken(storedToken));

@@ -18,6 +18,7 @@ import Logo from "../../../assets/svgs/logo.svg";
 import { AuthStackScreenProps } from "../../../types";
 import { loginService } from "../../../services/authService";
 import { setToken } from "../../../store/auth/token";
+import { setValueInSecureStorage } from "../../../helpers/secureStorageHelpers";
 
 const loginSchema = yup.object({
 	email: yup
@@ -41,8 +42,8 @@ const LoginScreen = ({ navigation }: AuthStackScreenProps<"Login">) => {
 			setLoading(true);
 			const res = await loginService(credentials);
 			dispatch(setToken(res.data.body));
+			setValueInSecureStorage("token", res.data.body);
 		} catch (e) {
-		} finally {
 			setLoading(false);
 		}
 	};
@@ -91,6 +92,8 @@ const LoginScreen = ({ navigation }: AuthStackScreenProps<"Login">) => {
 								onSubmitEditing={() =>
 									passwordInputRef.current?.focus()
 								}
+								keyboardType="email-address"
+								autoCapitalize="none"
 								returnKeyType="go"
 								blurOnSubmit={false}
 								error={

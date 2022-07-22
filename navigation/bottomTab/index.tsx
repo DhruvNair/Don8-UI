@@ -1,29 +1,38 @@
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
-import { IconButton } from "react-native-paper";
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
-import UnderConstructionScreen from "../screens/UnderConstructionScreen";
-import { useReduxDispatch } from "../store";
-import { clearToken } from "../store/auth/token";
-import { RootTabParamList, RootTabScreenProps } from "../types";
+import { useEffect } from "react";
+import Colors from "../../constants/Colors";
+import { updateLocalUserDetails } from "../../helpers/userDetailsHelpers";
+import useColorScheme from "../../hooks/useColorScheme";
+import UnderConstructionScreen from "../../screens/UnderConstructionScreen";
+import { useReduxDispatch, useReduxSelector } from "../../store";
+import { RootTabParamList, RootTabScreenProps } from "../../types";
+import ExploreStackNavigator from "./explore";
+import ProfileStackNavigator from "./profile";
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 const BottomTabNavigator = () => {
 	const colorScheme = useColorScheme();
+	const { tabBarVisible } = useReduxSelector((state) => state.app);
+	useEffect(() => {
+		updateLocalUserDetails();
+	}, []);
 	const dispatch = useReduxDispatch();
+
 	return (
 		<BottomTab.Navigator
 			initialRouteName="Explore"
 			screenOptions={{
 				tabBarActiveTintColor: Colors[colorScheme].tint,
+				headerShown: false,
+				tabBarStyle: tabBarVisible ? {} : { display: "none" },
 			}}
 		>
 			<BottomTab.Screen
 				name="Explore"
-				component={UnderConstructionScreen}
+				component={ExploreStackNavigator}
 				options={({ navigation }: RootTabScreenProps<"Explore">) => ({
 					title: "Explore",
 					tabBarIcon: ({ color }) => (
@@ -39,23 +48,16 @@ const BottomTabNavigator = () => {
 					tabBarIcon: ({ color }) => (
 						<TabBarIcon name="bubble" color={color} />
 					),
+					headerShown: true,
 				}}
 			/>
 			<BottomTab.Screen
 				name="Profile"
-				component={UnderConstructionScreen}
+				component={ProfileStackNavigator}
 				options={() => ({
 					title: "Profile",
 					tabBarIcon: ({ color }) => (
 						<TabBarIcon name="user" color={color} />
-					),
-					headerRight: () => (
-						<IconButton
-							icon={"logout"}
-							onPress={() => {
-								dispatch(clearToken());
-							}}
-						/>
 					),
 				})}
 			/>

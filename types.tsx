@@ -72,3 +72,23 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
 		BottomTabScreenProps<RootTabParamList, Screen>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
+
+export type ExploreStackParamList = {
+	AllPosts: undefined;
+	PostOverview: undefined;
+};
+
+export type ExploreStackScreenProps<
+	Screen extends keyof ExploreStackParamList
+> = NativeStackScreenProps<ExploreStackParamList, Screen>;
+
+export type ProfileStackParamList = {
+	ProfileOverview: undefined;
+	EditProfile: undefined;
+	MyPosts: undefined;
+	MyAddresses: undefined;
+};
+
+export type ProfileStackScreenProps<
+	Screen extends keyof ProfileStackParamList
+> = NativeStackScreenProps<ProfileStackParamList, Screen>;

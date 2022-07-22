@@ -7,7 +7,8 @@ const runInterceptor = () => {
 		(conf) => {
 			conf.timeout = 5000;
 			if (conf.headers)
-				conf.headers.Authorization = store.getState().auth.token;
+				conf.headers.Authorization =
+					"Bearer " + store.getState().auth.token;
 			return conf;
 		},
 		(error) => {

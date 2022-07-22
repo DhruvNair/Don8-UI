@@ -88,6 +88,7 @@ const RegisterScreenStep1 = ({
 									label="Email"
 									ref={emailInputRef}
 									keyboardType="email-address"
+									autoCapitalize="none"
 									placeholder="Enter your email ID"
 									onChangeText={formikProps.handleChange(
 										"email"

@@ -24,9 +24,7 @@ export default function App() {
 		return (
 			<ReduxProvider store={store}>
 				<PaperProvider>
-					<SafeAreaProvider>
-						<Navigation colorScheme={colorScheme} />
-					</SafeAreaProvider>
+					<Navigation colorScheme={colorScheme} />
 				</PaperProvider>
 			</ReduxProvider>
 		);
