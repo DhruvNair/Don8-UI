@@ -1,6 +1,7 @@
 import Axios from "axios";
 import Toast from "react-native-simple-toast";
 import store from "../store";
+import { clearToken, setToken } from "../store/auth/token";
 
 const runInterceptor = () => {
 	Axios.interceptors.request.use(
@@ -35,7 +36,12 @@ const handleError = (error: { message: string }) => {
 				Toast.LONG
 			);
 		} else {
-			if (!error.message.includes("Request failed with status code 400"))
+			if (error.message.includes("401")) {
+				Toast.show("Session expired", Toast.LONG);
+				store.dispatch(clearToken());
+			} else if (
+				!error.message.includes("Request failed with status code 400")
+			)
 				Toast.show(
 					"An unexpected error occured. Please try again later.",
 					Toast.LONG

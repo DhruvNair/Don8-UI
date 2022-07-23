@@ -12,4 +12,8 @@ export default {
 	user: {
 		details: server_url + "/user",
 	},
+	posts: {
+		myPosts: server_url + "/product/byUser",
+		allPosts: server_url + "/product",
+	},
 };

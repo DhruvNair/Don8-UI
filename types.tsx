@@ -9,6 +9,7 @@ import {
 	NavigatorScreenParams,
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { AddressResponse } from "./services/addressService";
 
 declare global {
 	namespace ReactNavigation {
@@ -92,3 +93,12 @@ export type ProfileStackParamList = {
 export type ProfileStackScreenProps<
 	Screen extends keyof ProfileStackParamList
 > = NativeStackScreenProps<ProfileStackParamList, Screen>;
+
+export type AddressStackParamList = {
+	AddressList: undefined;
+	EditAddress: { initialDetails?: AddressResponse };
+};
+
+export type AddressStackScreenProps<
+	Screen extends keyof AddressStackParamList
+> = NativeStackScreenProps<AddressStackParamList, Screen>;

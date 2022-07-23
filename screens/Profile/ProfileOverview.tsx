@@ -35,7 +35,7 @@ const ProfileOverviewScreen = ({ navigation }: Props) => {
 					<Avatar.Text
 						style={styles.avatar}
 						size={126}
-						label={userDetails.displayName[0].toUpperCase()}
+						label={(userDetails.displayName[0] || "").toUpperCase()}
 					/>
 				)}
 				<Title style={styles.paragraph}>
@@ -47,7 +47,7 @@ const ProfileOverviewScreen = ({ navigation }: Props) => {
 				<Paragraph style={styles.paragraph}>
 					{userDetails.mobile}
 				</Paragraph>
-				<Caption style={styles.caption}>Change password</Caption>
+				{/* <Caption style={styles.caption}>Change password</Caption> */}
 				<View style={styles.listContainer}>
 					<List.Item
 						onPress={() => {

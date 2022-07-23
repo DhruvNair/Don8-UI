@@ -7,6 +7,7 @@ import { IconButton } from "react-native-paper";
 import { ProfileStackParamList } from "../../../types";
 import ProfileOverviewScreen from "../../../screens/Profile/ProfileOverview";
 import EditProfile from "../../../screens/Profile/EditProfile";
+import AddressStackNavigator from "./address";
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>();
 
@@ -48,9 +49,9 @@ const ProfileStackNavigator = () => {
 				component={UnderConstructionScreen}
 			/>
 			<Stack.Screen
-				options={{ headerTitle: "My Addresses" }}
+				options={{ headerTitle: "My Addresses", headerShown: false }}
 				name="MyAddresses"
-				component={UnderConstructionScreen}
+				component={AddressStackNavigator}
 			/>
 		</Stack.Navigator>
 	);

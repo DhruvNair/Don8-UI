@@ -156,12 +156,31 @@ const EditProfile = ({ navigation }: Props) => {
 								value={email}
 							/>
 							<TextInput
-								style={[styles.textInput, { marginBottom: 25 }]}
+								style={[styles.textInput]}
 								mode="outlined"
 								label="Phone"
 								keyboardType="phone-pad"
-								value={mobile}
+								onChangeText={formikProps.handleChange("phone")}
+								onBlur={formikProps.handleBlur("phone")}
+								value={formikProps.values.phone}
+								error={
+									!!(
+										formikProps.touched.phone &&
+										formikProps.errors.phone
+									)
+								}
 							/>
+							<HelperText
+								type="error"
+								visible={
+									!!(
+										formikProps.touched.phone &&
+										formikProps.errors.phone
+									)
+								}
+							>
+								{formikProps.errors.phone}
+							</HelperText>
 						</View>
 					</ScrollView>
 					<View style={styles.footer}>

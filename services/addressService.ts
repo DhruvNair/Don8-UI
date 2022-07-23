@@ -10,7 +10,7 @@ export type Address = {
 	pinCode: string;
 	city: string;
 	state: string;
-	country: string;
+	country?: string;
 };
 
 export type AddressResponse = Address & {
@@ -31,7 +31,10 @@ export const getMyAddressesService = () => {
 export const saveAddressService = (address: Address) => {
 	const { id } = store.getState().auth.userDetails;
 	if (id) {
-		return axios.post(APIs.user.details + "/" + id + "/address", address);
+		return axios.post(APIs.user.details + "/" + id + "/address", {
+			...address,
+			country: "Canada",
+		});
 	} else {
 		throw Error("Could not access ID");
 	}
@@ -52,7 +55,7 @@ export const editAddressService = (address: Address, aid: string) => {
 export const deleteAddressService = (aid: string) => {
 	const { id } = store.getState().auth.userDetails;
 	if (id) {
-		return axios.put(APIs.user.details + "/" + id + "/address/" + aid);
+		return axios.delete(APIs.user.details + "/" + id + "/address/" + aid);
 	} else {
 		throw Error("Could not access ID");
 	}

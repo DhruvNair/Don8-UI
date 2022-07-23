@@ -35,7 +35,7 @@ const AddressListItem = ({ address, deleteAddress, editAddress }: Props) => {
 					}}
 				>
 					<Text style={{ fontSize: 16, paddingTop: 2, flex: 1 }}>
-						{address.name || "Name"}
+						{address.name || "Name Unavailable"}
 					</Text>
 					<View style={{ flexDirection: "row", height: 30 }}>
 						<IconButton
@@ -52,7 +52,9 @@ const AddressListItem = ({ address, deleteAddress, editAddress }: Props) => {
 					</View>
 				</View>
 				<Text style={{ fontSize: 12, paddingBottom: 5 }}>
-					{address.phoneNumber || "Contact"}
+					{address.phoneNumber
+						? "Contact: " + address.phoneNumber
+						: "Contact Unavailable"}
 				</Text>
 				<Text
 					style={{

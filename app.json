@@ -10,7 +10,7 @@
 		"splash": {
 			"image": "./assets/images/splash.png",
 			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
+			"backgroundColor": "#565656"
 		},
 		"updates": {
 			"fallbackToCacheTimeout": 0
@@ -22,7 +22,7 @@
 		"android": {
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/images/adaptive-icon.png",
-				"backgroundColor": "#ffffff"
+				"backgroundColor": "#565656"
 			},
 			"package": "com.uwindsor.don8",
 			"versionCode": 1
