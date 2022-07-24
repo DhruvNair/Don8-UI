@@ -1,6 +1,7 @@
 import axios from "axios";
 import APIs from "../constants/APIs";
 import store from "../store";
+import { AddressResponse } from "./addressService";
 import { UploadableFile } from "./authService";
 
 export type UserDetails = {
@@ -8,13 +9,14 @@ export type UserDetails = {
 	name: string;
 	phone: string;
 	email: string;
+	image_url: string;
 };
 
 export type Post = {
 	productName: string;
 	dateAdded: string;
 	dateExpiry: string;
-	price: number;
+	price: string;
 	aid: string;
 	p_image_url?: string;
 	description?: string;
@@ -24,6 +26,8 @@ export type PostResponse = Post & {
 	pid: string;
 	uid: string;
 	user: UserDetails;
+	address: AddressResponse;
+	is_donated: boolean;
 };
 
 export const getMyPostsService = () => axios.get(APIs.posts.myPosts);
@@ -40,7 +44,7 @@ export const createPostService = (post: Post, image: UploadableFile) => {
 		);
 		//@ts-ignore
 		reqBody.append("productImage", image);
-		return axios.post(APIs.posts.allPosts, reqBody, {
+		return axios.post(APIs.posts.allPosts + "/", reqBody, {
 			headers: {
 				"Content-Type": "multipart/form-data",
 			},
@@ -93,3 +97,6 @@ export const changeDonationStatusService = (
 		throw Error("Could not access ID");
 	}
 };
+
+export const deletePostService = (pid: string) =>
+	axios.delete(APIs.posts.allPosts + "/" + pid);

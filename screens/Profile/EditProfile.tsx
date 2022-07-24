@@ -1,4 +1,3 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as DocumentPicker from "expo-document-picker";
 import { Formik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
@@ -16,9 +15,9 @@ import {
 } from "../../services/authService";
 import { useReduxDispatch, useReduxSelector } from "../../store";
 import { setTabBarVisible } from "../../store/app/tabBar";
-import { ProfileStackParamList } from "../../types";
+import { ProfileStackScreenProps } from "../../types";
 
-type Props = NativeStackScreenProps<ProfileStackParamList, "EditProfile">;
+type Props = ProfileStackScreenProps<"EditProfile">;
 
 const editProfileSchema = yup.object({
 	name: yup.string().required("You need to fill in your name"),

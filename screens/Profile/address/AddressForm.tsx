@@ -1,4 +1,3 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Formik } from "formik";
 import React, { useEffect } from "react";
 import { ScrollView, StyleSheet } from "react-native";
@@ -11,14 +10,13 @@ import Colors from "../../../constants/Colors";
 import { Regex } from "../../../constants/Regex";
 import {
 	Address,
-	AddressResponse,
 	editAddressService,
 	saveAddressService,
 } from "../../../services/addressService";
 import { useReduxSelector } from "../../../store";
-import { AddressStackParamList } from "../../../types";
+import { AddressStackScreenProps } from "../../../types";
 
-type Props = NativeStackScreenProps<AddressStackParamList, "EditAddress">;
+type Props = AddressStackScreenProps<"EditAddress">;
 
 const addressValidationSchema = yup.object({
 	name: yup.string().required("You need to fill in a name"),

@@ -43,7 +43,9 @@ const PostListItem = ({
 					return (
 						<View style={styles.rightIcons}>
 							<IconButton
-								icon={is_donated ? "check-circle" : "check"}
+								icon={
+									is_donated ? "close-circle" : "check-circle"
+								}
 								color={is_donated ? "red" : Colors.primary}
 								onPress={onUpdateDonation}
 							/>
@@ -66,5 +68,5 @@ const PostListItem = ({
 export default PostListItem;
 
 const styles = StyleSheet.create({
-	rightIcons: { flexDirection: "row" },
+	rightIcons: { flexDirection: "row", backgroundColor: "transparent" },
 });

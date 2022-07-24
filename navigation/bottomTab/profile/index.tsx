@@ -8,6 +8,7 @@ import { ProfileStackParamList } from "../../../types";
 import ProfileOverviewScreen from "../../../screens/Profile/ProfileOverview";
 import EditProfile from "../../../screens/Profile/EditProfile";
 import AddressStackNavigator from "./address";
+import MyPostsStackNavigator from "./myPosts";
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>();
 
@@ -44,12 +45,12 @@ const ProfileStackNavigator = () => {
 				component={EditProfile}
 			/>
 			<Stack.Screen
-				options={{ headerTitle: "My Posts" }}
+				options={{ headerShown: false }}
 				name="MyPosts"
-				component={UnderConstructionScreen}
+				component={MyPostsStackNavigator}
 			/>
 			<Stack.Screen
-				options={{ headerTitle: "My Addresses", headerShown: false }}
+				options={{ headerShown: false }}
 				name="MyAddresses"
 				component={AddressStackNavigator}
 			/>

@@ -1,24 +1,18 @@
-import {
-	ActivityIndicator,
-	FlatList,
-	SafeAreaView,
-	StyleSheet,
-} from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
-import Colors from "../../../constants/Colors";
+import { useFocusEffect } from "@react-navigation/native";
+import React, { useCallback, useState } from "react";
+import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
+import Toast from "react-native-simple-toast";
 import AddressListItem from "../../../components/AddressListItem";
+import { Text, View } from "../../../components/Themed";
+import Colors from "../../../constants/Colors";
 import {
 	AddressResponse,
 	deleteAddressService,
 	getMyAddressesService,
 } from "../../../services/addressService";
-import { useFocusEffect } from "@react-navigation/native";
-import { AddressStackParamList } from "../../../types";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { View, Text } from "../../../components/Themed";
-import Toast from "react-native-simple-toast";
+import { AddressStackScreenProps } from "../../../types";
 
-type Props = NativeStackScreenProps<AddressStackParamList, "AddressList">;
+type Props = AddressStackScreenProps<"AddressList">;
 
 const AddressList = ({ navigation }: Props) => {
 	const [loading, setLoading] = useState(false);

@@ -1,21 +1,13 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { StyleSheet } from "react-native";
-import {
-	Avatar,
-	Caption,
-	Divider,
-	List,
-	Paragraph,
-	Title,
-} from "react-native-paper";
+import { Avatar, Divider, List, Paragraph, Title } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import { useReduxDispatch, useReduxSelector } from "../../store";
-import { ProfileStackParamList } from "../../types";
+import { ProfileStackScreenProps } from "../../types";
 
-type Props = NativeStackScreenProps<ProfileStackParamList, "ProfileOverview">;
+type Props = ProfileStackScreenProps<"ProfileOverview">;
 
 const ProfileOverviewScreen = ({ navigation }: Props) => {
 	const dispatch = useReduxDispatch();
