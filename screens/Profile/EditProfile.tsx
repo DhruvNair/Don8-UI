@@ -43,7 +43,9 @@ const EditProfile = ({ navigation }: Props) => {
 	}, []);
 
 	const [loading, setLoading] = useState(false);
-	const [profilePic, setProfilePic] = useState(profileImageURL);
+	const [profilePic, setProfilePic] = useState(
+		profileImageURL ? profileImageURL + "?" + new Date() : profileImageURL
+	);
 	const profilePicFileRef = useRef<UploadableFile>();
 	const selectProfilePicture = async () => {
 		try {
@@ -108,10 +110,7 @@ const EditProfile = ({ navigation }: Props) => {
 										<Avatar.Image
 											size={126}
 											source={{
-												uri:
-													profilePic +
-													+"?" +
-													new Date(),
+												uri: profilePic,
 											}}
 										/>
 									) : (
