@@ -12,7 +12,7 @@ import Toast from "react-native-simple-toast";
 import MatComIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
-import { View } from "../../../components/Themed";
+import { View, Text } from "../../../components/Themed";
 import {
 	AddressResponse,
 	getMyAddressesService,
@@ -27,8 +27,11 @@ type Props = MyPostsStackScreenProps<"EditMyPosts">;
 
 const instantProductSchema = yup.object({
 	productName: yup.string().required("You need to fill in the product name"),
-	price: yup.number().required("You need to fill in the price"),
-	// .matches(Regex.price, "Please enter a valid price"),
+	price: yup
+		.number()
+		.typeError("Price has to be a number")
+		.required("You need to fill in the price")
+		.min(0, "Price can not be negative"),
 });
 
 const PostForm = ({ navigation, route }: Props) => {
@@ -125,9 +128,6 @@ const PostForm = ({ navigation, route }: Props) => {
 		description: string;
 	}) => {
 		if (productImageFileRef.current) {
-			console.log(
-				expiryDate.toISOString().split("T")[0].split("-").join("/")
-			);
 			const res = await createPostService(
 				{
 					...values,
@@ -223,6 +223,13 @@ const PostForm = ({ navigation, route }: Props) => {
 										style={styles.image}
 										source={{ uri: productImage }}
 									/>
+									{!!initialValues && (
+										<View style={styles.overlay}>
+											<Text style={styles.overlayText}>
+												Change
+											</Text>
+										</View>
+									)}
 								</View>
 							) : (
 								<View
@@ -327,6 +334,8 @@ const PostForm = ({ navigation, route }: Props) => {
 										styles.textInput,
 										{ marginBottom: 30 },
 									]}
+									placeholder="Expiry date"
+									label="Expiry date"
 									mode="outlined"
 								/>
 								<DropDown
@@ -403,5 +412,17 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "100%",
 		borderRadius: 25,
+	},
+	overlay: {
+		backgroundColor: "rgba(0,0,0,0.5)",
+		position: "absolute",
+		width: "100%",
+		height: "100%",
+		alignItems: "center",
+		justifyContent: "center",
+		borderRadius: 25,
+	},
+	overlayText: {
+		color: "white",
 	},
 });

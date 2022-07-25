@@ -1,5 +1,5 @@
 import { useFocusEffect } from "@react-navigation/native";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import PostListItem from "../../components/PostListItem";
 import { Text, View } from "../../components/Themed";
@@ -21,10 +21,9 @@ const PostList = ({ navigation, searchText }: Props) => {
 			setLoading(true);
 			const res = await getAllPostsService();
 			setAllPosts(
-				res.data.content.filter(
-					(element: PostResponse) =>
-						element.uid != id && !element.is_donated
-				)
+				res.data.content.filter((element: PostResponse) => {
+					return element.uid != id && !element.is_donated;
+				})
 			);
 		} catch (e) {
 			console.log(e);
@@ -32,11 +31,10 @@ const PostList = ({ navigation, searchText }: Props) => {
 			setLoading(false);
 		}
 	};
-
 	useFocusEffect(
 		useCallback(() => {
 			getAllPosts();
-		}, [])
+		}, [id])
 	);
 
 	if (loading) {

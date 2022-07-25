@@ -58,7 +58,6 @@ const ForgotPasswordScreenStep1 = ({
 				setValidUsername(true);
 				setOtpSent(true);
 				otp.current = res.body;
-				console.log(otp.current);
 			} else {
 				setUsernameError("Please enter an email");
 			}

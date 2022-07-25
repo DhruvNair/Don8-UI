@@ -27,7 +27,10 @@ const runInterceptor = () => {
 	);
 };
 
-const handleError = (error: { message: string }) => {
+const handleError = (error: {
+	message: string;
+	response: { data: { body: string } };
+}) => {
 	try {
 		console.log(error);
 		if (error.message.includes("timeout")) {
@@ -37,15 +40,15 @@ const handleError = (error: { message: string }) => {
 			);
 		} else {
 			if (error.message.includes("401")) {
-				Toast.show("Session expired", Toast.LONG);
-				store.dispatch(clearToken());
-			} else if (
-				!error.message.includes("Request failed with status code 400")
-			)
-				Toast.show(
-					"An unexpected error occured. Please try again later.",
-					Toast.LONG
-				);
+				if (error.response.data.body.includes("Bad credentials")) {
+					Toast.show("Invalid Credentials", Toast.LONG);
+				} else {
+					Toast.show("Session expired", Toast.LONG);
+					store.dispatch(clearToken());
+				}
+			} else {
+				Toast.show(error.response.data.body);
+			}
 		}
 	} catch (e) {
 		console.log(e);

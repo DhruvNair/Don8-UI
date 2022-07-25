@@ -11,7 +11,7 @@ export const updateLocalUserDetails = async () => {
 				id: String(uid),
 				displayName: name,
 				email,
-				profileImageURL: image_url + "?" + new Date(),
+				profileImageURL: image_url,
 				mobile: String(phone),
 			})
 		);

@@ -107,7 +107,12 @@ const EditProfile = ({ navigation }: Props) => {
 									{!!profilePic ? (
 										<Avatar.Image
 											size={126}
-											source={{ uri: profilePic }}
+											source={{
+												uri:
+													profilePic +
+													+"?" +
+													new Date(),
+											}}
 										/>
 									) : (
 										<Avatar.Text

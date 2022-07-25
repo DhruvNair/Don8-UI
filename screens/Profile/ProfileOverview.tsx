@@ -21,7 +21,9 @@ const ProfileOverviewScreen = ({ navigation }: Props) => {
 					<Avatar.Image
 						style={styles.avatar}
 						size={126}
-						source={{ uri: userDetails.profileImageURL }}
+						source={{
+							uri: userDetails.profileImageURL + "?" + new Date(),
+						}}
 					/>
 				) : (
 					<Avatar.Text

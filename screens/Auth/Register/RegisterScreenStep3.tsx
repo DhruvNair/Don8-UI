@@ -27,7 +27,6 @@ const RegisterScreenStep3 = ({
 			const res = await sendRegisterOTPService(route.params.email);
 			otp.current = res.data.body;
 			setOtpSent(true);
-			console.log(otp.current);
 		} catch (e: any) {
 			Toast.show(e.response.data.body || "An unexpected error occured.");
 			navigation.getParent()?.goBack();
